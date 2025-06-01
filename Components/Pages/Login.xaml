@@ -9,7 +9,7 @@
                 Background="White"
                 StrokeShape="RoundRectangle 10,10,10,10"
                 Stroke="Transparent"
-                Padding="20"
+                Padding="0 0 25 0"
                 WidthRequest="300"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
@@ -23,45 +23,48 @@
                 <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
 
                     <Image Source="qannonilogo.png"
-                       WidthRequest="200"
-                       HeightRequest="200"
-                       Margin="0,0,0,5"
+                       WidthRequest="250"
+                       HeightRequest="250"
+                       
                        Aspect="AspectFit"/>
 
+                    <Label x:Name="ErrorLabel"
+    TextColor="Red"
+    IsVisible="False"
+    HorizontalTextAlignment="Center"
+   />
+                    <Label x:Name="userLabel"
+                        Text="Username"
+                         HorizontalTextAlignment="Start"
+                        />
 
-
-                    <Frame HasShadow="False" Padding="0" HeightRequest="40">
-                        <Entry x:Name="EmailEntry"
+                    <Entry x:Name="EmailEntry"
                            Placeholder="Username*"
                            PlaceholderColor="LightGray"
                            Keyboard="Text"
                            TextColor="Black"
                            VerticalOptions="Center"
-                          
                            />
-                    </Frame>
-
-                    <Frame HasShadow="False" Padding="0" HeightRequest="45">
-                        <Entry x:Name="PasswordEntry"
+                    <Label x:Name="passwordLabel" 
+     Text="Password"
+      HorizontalTextAlignment="Start"
+     />
+                    <Entry x:Name="PasswordEntry"
                            Placeholder="Password*"
                            PlaceholderColor="LightGray"
                            IsPassword="True"
                            TextColor="Black"
                            VerticalOptions="Center"
                             />
-                    </Frame>
 
-                    <Label x:Name="ErrorLabel"
-                       TextColor="Red"
-                       IsVisible="False"
-                       HorizontalTextAlignment="Center"
-                      />
-
-                    <Button Text="LOGIN"
+                   
+                    <Button 
+                        x:Name="LoginButton"
+                        Text="LOGIN"
                         BackgroundColor="#d93337" TextColor="White"
-                        CornerRadius="10"
-                        HeightRequest="50"
-                        FontSize="18"
+                        CornerRadius="5"
+                        HeightRequest="40"
+                        FontSize="15"
                         FontAttributes="Bold"
                        />
 

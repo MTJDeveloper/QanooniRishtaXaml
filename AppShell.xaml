@@ -3,24 +3,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:QanooniRishta.Components.Pages"
     x:Class="QanooniRishta.AppShell"
-    Title="Qanooni Rishta">
+    Shell.NavBarIsVisible="False"
+    FlyoutBehavior="Disabled"  Title="Qanooni Rishta">
 
-    <!-- Login page without navigation bar -->
     <ShellContent 
-        Title="Login" 
-        ContentTemplate="{DataTemplate pages:Login}" 
+        Title="Login"
         Route="login"
-        Shell.NavBarIsVisible="False" />
-
-    <!-- Other pages with header (default nav bar) -->
-    <ShellContent 
-        Title="Home" 
-        ContentTemplate="{DataTemplate pages:Home}" 
-        Route="home" />
+        ContentTemplate="{DataTemplate pages:Login}" 
+        />
 
     <ShellContent 
-        Title="Matched Relations" 
-        ContentTemplate="{DataTemplate pages:MatchedRelations}" 
-        Route="matchedRelations" />
+        Title="Home"
+        Route="home"
+        ContentTemplate="{DataTemplate pages:Home}" />
+
+    <ShellContent 
+        Title="Matched Relations"
+        Route="matchedRelations"
+        ContentTemplate="{DataTemplate pages:MatchedRelations}" />
 
 </Shell>
