@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QanooniRishta.Components.Layout.MainLayout">
+
+    <StackLayout>
+        <!-- Header -->
+        <Grid BackgroundColor="DarkBlue" Padding="10" HeightRequest="50">
+            <Label Text="Qanooni Rishta" TextColor="White" FontSize="20" VerticalOptions="Center" />
+            <Button Text="Logout" HorizontalOptions="End" VerticalOptions="Center" Clicked="OnLogoutClicked" />
+        </Grid>
+
+        <!-- Content placeholder -->
+        <ContentView x:Name="PageContent" />
+
+        <!-- Footer -->
+        <Grid BackgroundColor="DarkBlue" Padding="10" HeightRequest="30">
+            <Label Text="© 2025 Qanooni Rishta" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+        </Grid>
+    </StackLayout>
+</ContentView>
+

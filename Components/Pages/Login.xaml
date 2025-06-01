@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QanooniRishta.Components.Pages.Login"
+             BackgroundImageSource="marriagebackground2.jpg">
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,Auto,*" ColumnDefinitions="*,Auto,*">
+            <Border Grid.Row="1" Grid.Column="1"
+                Background="White"
+                StrokeShape="RoundRectangle 10,10,10,10"
+                Stroke="Transparent"
+                Padding="20"
+                WidthRequest="300"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Opacity="0.8">
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                        Offset="10,10"
+                        Radius="20"
+                        Opacity="0.5" />
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+
+                    <Image Source="qannonilogo.png"
+                       WidthRequest="200"
+                       HeightRequest="200"
+                       Margin="0,0,0,5"
+                       Aspect="AspectFit"/>
+
+
+
+                    <Frame HasShadow="False" Padding="0" HeightRequest="40">
+                        <Entry x:Name="EmailEntry"
+                           Placeholder="Username*"
+                           PlaceholderColor="LightGray"
+                           Keyboard="Text"
+                           TextColor="Black"
+                           VerticalOptions="Center"
+                          
+                           />
+                    </Frame>
+
+                    <Frame HasShadow="False" Padding="0" HeightRequest="45">
+                        <Entry x:Name="PasswordEntry"
+                           Placeholder="Password*"
+                           PlaceholderColor="LightGray"
+                           IsPassword="True"
+                           TextColor="Black"
+                           VerticalOptions="Center"
+                            />
+                    </Frame>
+
+                    <Label x:Name="ErrorLabel"
+                       TextColor="Red"
+                       IsVisible="False"
+                       HorizontalTextAlignment="Center"
+                      />
+
+                    <Button Text="LOGIN"
+                        BackgroundColor="#d93337" TextColor="White"
+                        CornerRadius="10"
+                        HeightRequest="50"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                       />
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

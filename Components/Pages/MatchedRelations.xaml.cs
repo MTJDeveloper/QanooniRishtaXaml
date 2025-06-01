@@ -1,0 +1,168 @@
+using System.Collections.ObjectModel;
+using ClosedXML.Excel;
+using Microsoft.Maui.Controls;
+using QanooniRishta.Models;
+using QanooniRishta.Services;
+
+namespace QanooniRishta.Components.Pages;
+
+public partial class MatchedRelations : ContentPage
+{
+    private readonly SqlLiteDatabaseService _dbService;
+    public ObservableCollection<MatchRelationViewModel> Relations { get; set; } = new();
+    public ObservableCollection<MatchRelationViewModel> FilteredRelations { get; set; } = new();
+
+    public MatchedRelations()
+    {
+        InitializeComponent();
+        _dbService = App.Services.GetService<SqlLiteDatabaseService>();
+        BindingContext = this;
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        await _dbService.InitAsync<MatchRelationViewModel>();
+        var data = await _dbService.GetAllAsync<MatchRelationViewModel>();
+
+        Relations.Clear();
+        foreach (var item in data)
+            Relations.Add(item);
+
+        ApplyFilter(string.Empty);
+    }
+
+    private void ApplyFilter(string search)
+    {
+        FilteredRelations.Clear();
+
+        var filtered = string.IsNullOrWhiteSpace(search)
+            ? Relations
+            : Relations.Where(r =>
+                (r.FirstName?.Contains(search, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                (r.LastName?.Contains(search, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                (r.Address?.Contains(search, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                r.Gender.ToString().Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                r.Age.ToString().Contains(search));
+
+        foreach (var item in filtered)
+            FilteredRelations.Add(item);
+    }
+
+    private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+    {
+        ApplyFilter(e.NewTextValue);
+    }
+
+    private async void OnBackClicked(object sender, EventArgs e)
+    {
+        // Navigate back or to home page
+        await Shell.Current.GoToAsync("//home");
+    }
+
+    private async void OnAddRelationClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("/addEditRelations");
+    }
+
+    private async void OnExportClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            var data = await _dbService.GetAllAsync<MatchRelationViewModel>();
+
+            using var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("Matched Relations");
+
+            worksheet.Cell(1, 1).Value = "First Name";
+            worksheet.Cell(1, 2).Value = "Last Name";
+            worksheet.Cell(1, 3).Value = "Age";
+            worksheet.Cell(1, 4).Value = "Gender";
+            worksheet.Cell(1, 5).Value = "Address";
+
+            worksheet.Range("A1:E1").Style.Font.Bold = true;
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                worksheet.Cell(i + 2, 1).Value = data[i].FirstName;
+                worksheet.Cell(i + 2, 2).Value = data[i].LastName;
+                worksheet.Cell(i + 2, 3).Value = data[i].Age.ToString();
+                worksheet.Cell(i + 2, 4).Value = data[i].Gender.ToString();
+                worksheet.Cell(i + 2, 5).Value = data[i].Address;
+            }
+
+            using var stream = new MemoryStream();
+            workbook.SaveAs(stream);
+            var bytes = stream.ToArray();
+
+            string filePath;
+
+            #if ANDROID
+                        var downloadsPath = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
+                        filePath = System.IO.Path.Combine(downloadsPath, "matched_relations.xlsx");
+            #elif WINDOWS
+                        var downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads";
+                        filePath = System.IO.Path.Combine(downloadsPath, "matched_relations.xlsx");
+            #else
+                   
+                filePath = System.IO.Path.Combine(FileSystem.AppDataDirectory, "matched_relations.xlsx");
+            #endif
+
+            await File.WriteAllBytesAsync(filePath, bytes);
+            await DisplayAlert("Success", "Exported Excel file successfully. (Implement file saving)", "OK");
+
+            await Launcher.Default.OpenAsync(new OpenFileRequest
+            {
+                File = new ReadOnlyFile(filePath)
+            });
+        }
+        catch (Exception ex)
+        {
+
+            await DisplayAlert("Error", ex.Message, "OK");
+
+        }
+    }
+
+    private async void OnViewClicked(object sender, EventArgs e)
+    {
+        if (sender is Button btn && btn.BindingContext is MatchRelationViewModel item)
+        {
+            // Navigate to view page with ?view=true parameter equivalent
+            await Shell.Current.GoToAsync($"/addEditRelations/{item.Id}?view=true");
+        }
+    }
+
+    private async void OnEditClicked(object sender, EventArgs e)
+    {
+        if (sender is Button btn && btn.BindingContext is MatchRelationViewModel item)
+        {
+            await Shell.Current.GoToAsync($"/addEditRelations/{item.Id}");
+        }
+    }
+
+    private async void OnDeleteClicked(object sender, EventArgs e)
+    {
+        if (sender is Button btn && btn.BindingContext is MatchRelationViewModel item)
+        {
+            bool confirmed = await DisplayAlert(
+                "Confirm Delete",
+                $"Are you sure you want to delete {item.FirstName} {item.LastName}?",
+                "Delete", "Cancel");
+
+            if (confirmed)
+            {
+                await _dbService.DeleteAsync(item);
+                Relations.Remove(item);
+                ApplyFilter(string.Empty);
+                await DisplayAlert("Success", "Deleted successfully!", "OK");
+            }
+        }
+    }
+
+    private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        // You can handle item selection if needed
+    }
+}

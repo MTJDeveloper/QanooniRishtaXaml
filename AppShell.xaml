@@ -1,0 +1,26 @@
+<Shell
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:QanooniRishta.Components.Pages"
+    x:Class="QanooniRishta.AppShell"
+    Title="Qanooni Rishta">
+
+    <!-- Login page without navigation bar -->
+    <ShellContent 
+        Title="Login" 
+        ContentTemplate="{DataTemplate pages:Login}" 
+        Route="login"
+        Shell.NavBarIsVisible="False" />
+
+    <!-- Other pages with header (default nav bar) -->
+    <ShellContent 
+        Title="Home" 
+        ContentTemplate="{DataTemplate pages:Home}" 
+        Route="home" />
+
+    <ShellContent 
+        Title="Matched Relations" 
+        ContentTemplate="{DataTemplate pages:MatchedRelations}" 
+        Route="matchedRelations" />
+
+</Shell>

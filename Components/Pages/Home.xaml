@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QanooniRishta.Components.Pages.Home"
+             
+             BackgroundColor="Transparent">
+
+    <Grid>
+        <!-- Background Image -->
+        <Image Source="marriagebackground2.jpg"
+               Aspect="AspectFill"
+               Opacity="0.7"
+               HorizontalOptions="Fill"
+               VerticalOptions="Fill" />
+
+        <!-- Foreground Buttons -->
+        <VerticalStackLayout HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Spacing="20">
+            <Button Text="Search Relations"
+                    Clicked="OnSearchRelationsClicked"
+                    BackgroundColor="#1976D2"
+                    TextColor="White"
+                    HeightRequest="60"
+                    FontSize="16"
+                    CornerRadius="8"/>
+
+            <Button Text="Add New Relation"
+                    Clicked="OnAddNewRelationClicked"
+                    BackgroundColor="#9C27B0"
+                    TextColor="White"
+                    HeightRequest="60"
+                    FontSize="16"
+                    CornerRadius="8"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
