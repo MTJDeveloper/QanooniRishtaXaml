@@ -18,20 +18,25 @@
                              VerticalOptions="Center"
                              Spacing="20">
             <Button Text="Search Relations"
-                    Clicked="OnSearchRelationsClicked"
-                    BackgroundColor="#1976D2"
-                    TextColor="White"
-                    HeightRequest="60"
-                    FontSize="16"
-                    CornerRadius="8"/>
+        Clicked="OnSearchRelationsClicked"
+        BackgroundColor="#1976D2"
+        TextColor="White"
+        HeightRequest="60"
+        FontSize="16"
+        CornerRadius="8"
+        ImageSource="serach2.png"
+        ContentLayout="Left, 10"/>
 
             <Button Text="Add New Relation"
-                    Clicked="OnAddNewRelationClicked"
-                    BackgroundColor="#9C27B0"
-                    TextColor="White"
-                    HeightRequest="60"
-                    FontSize="16"
-                    CornerRadius="8"/>
+        Clicked="OnAddNewRelationClicked"
+        BackgroundColor="#9C27B0"
+        TextColor="White"
+        HeightRequest="60"
+        FontSize="16"
+        CornerRadius="8"
+        ImageSource="addrealation.png"
+        ContentLayout="Left, 10"/>
+
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
