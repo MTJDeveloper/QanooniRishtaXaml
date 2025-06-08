@@ -9,8 +9,8 @@ namespace QanooniRishta.Components.Pages;
 public partial class MatchedRelations : ContentPage
 {
     private readonly SqlLiteDatabaseService _dbService;
-    public ObservableCollection<MatchRelationViewModel> Relations { get; set; } = new();
-    public ObservableCollection<MatchRelationViewModel> FilteredRelations { get; set; } = new();
+    public ObservableCollection<MatchRealtion> Relations { get; set; } = new();
+    public ObservableCollection<MatchRealtion> FilteredRelations { get; set; } = new();
 
     public MatchedRelations()
     {
@@ -23,14 +23,20 @@ public partial class MatchedRelations : ContentPage
     {
         base.OnAppearing();
 
-        await _dbService.InitAsync<MatchRelationViewModel>();
-        var data = await _dbService.GetAllAsync<MatchRelationViewModel>();
+        await _dbService.InitAsync<MatchRealtion>();
+        var data = await _dbService.GetAllAsync<MatchRealtion>();
 
         Relations.Clear();
         foreach (var item in data)
             Relations.Add(item);
 
         ApplyFilter(string.Empty);
+
+        for (int i = 0; i < Relations.Count; i++)
+        {
+            Relations[i].Index = (i + 1).ToString();
+        }
+
     }
 
     private void ApplyFilter(string search)
@@ -48,6 +54,8 @@ public partial class MatchedRelations : ContentPage
 
         foreach (var item in filtered)
             FilteredRelations.Add(item);
+
+  
     }
 
     private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
@@ -70,7 +78,7 @@ public partial class MatchedRelations : ContentPage
     {
         try
         {
-            var data = await _dbService.GetAllAsync<MatchRelationViewModel>();
+            var data = await _dbService.GetAllAsync<MatchRealtion>();
 
             using var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add("Matched Relations");
@@ -127,24 +135,28 @@ public partial class MatchedRelations : ContentPage
 
     private async void OnViewClicked(object sender, EventArgs e)
     {
-        if (sender is Button btn && btn.BindingContext is MatchRelationViewModel item)
+        if (sender is Button btn && btn.BindingContext is MatchRealtion item)
         {
-            // Navigate to view page with ?view=true parameter equivalent
-            await Shell.Current.GoToAsync($"/addEditRelations/{item.Id}?view=true");
+            await Shell.Current.GoToAsync($"/addEditRelations?id={item.Id}&view=true");
+
+            //await Shell.Current.GoToAsync($"/addEditRelations/{item.Id}?view=true");
         }
     }
 
+ 
     private async void OnEditClicked(object sender, EventArgs e)
     {
-        if (sender is Button btn && btn.BindingContext is MatchRelationViewModel item)
+        if (sender is Button btn && btn.BindingContext is MatchRealtion item)
         {
-            await Shell.Current.GoToAsync($"/addEditRelations/{item.Id}");
+            await Shell.Current.GoToAsync($"/addEditRelations?id={item.Id}&view=true");
+
+            //await Shell.Current.GoToAsync($"/addEditRelations/{item.Id}");
         }
     }
 
     private async void OnDeleteClicked(object sender, EventArgs e)
     {
-        if (sender is Button btn && btn.BindingContext is MatchRelationViewModel item)
+        if (sender is Button btn && btn.BindingContext is MatchRealtion item)
         {
             bool confirmed = await DisplayAlert(
                 "Confirm Delete",

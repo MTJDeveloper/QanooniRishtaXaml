@@ -9,7 +9,7 @@ namespace QanooniRishta.Components.Pages;
 public partial class AddEditRelations : ContentPage
 {
     private readonly SqlLiteDatabaseService _dbService;
-    private MatchRelationViewModel _model = new();
+    private MatchRealtion _model = new();
     private bool _isViewMode;
 
     public AddEditRelations()
@@ -32,7 +32,7 @@ public partial class AddEditRelations : ContentPage
 
         if (query.AllKeys.Contains("id") && int.TryParse(query["id"], out int id))
         {
-            var result = await _dbService.GetByIdAsync<MatchRelationViewModel>(id);
+            var result = await _dbService.GetByIdAsync<MatchRealtion>(id);
             if (result != null)
             {
                 _model = result;

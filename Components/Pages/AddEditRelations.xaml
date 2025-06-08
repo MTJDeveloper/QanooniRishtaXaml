@@ -6,7 +6,7 @@
              >
 
     <ContentPage.BindingContext>
-        <models:MatchRelationViewModel />
+        <models:MatchRealtion />
     </ContentPage.BindingContext>
 
     <ScrollView>

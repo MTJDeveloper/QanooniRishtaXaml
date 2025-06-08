@@ -3,50 +3,164 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="QanooniRishta.Components.Pages.MatchedRelations"
-    Padding="16">
+    BackgroundColor="#F5F7FA"
+    Padding="20">
 
-    <VerticalStackLayout Spacing="12">
+    <VerticalStackLayout Spacing="16">
 
-        <HorizontalStackLayout HorizontalOptions="Fill" Spacing="10">
-            <Button Text="Back" Clicked="OnBackClicked" />
-            <Button Text="Add Relation" Clicked="OnAddRelationClicked" />
-            <Button Text="Export Excel" Clicked="OnExportClicked" />
-        </HorizontalStackLayout>
+        <FlexLayout 
+    Direction="Row" 
+    Wrap="Wrap" 
+    JustifyContent="Start"
+    AlignItems="Start"
+    BindableLayout.ItemsSource="{Binding TopButtons}" 
+    >
 
+            <Button 
+        Text="← Back" 
+        Clicked="OnBackClicked" 
+        BackgroundColor="#E0E7FF" 
+        TextColor="#1E3A8A"
+        CornerRadius="8"
+        FontAttributes="Bold"
+        Padding="15,5"
+        WidthRequest="160"
+        Margin="0,0,5,12" />
+
+            <Button 
+        Text="＋ Add Relation" 
+        Clicked="OnAddRelationClicked" 
+        BackgroundColor="#10B981" 
+        TextColor="White"
+        CornerRadius="8"
+        FontAttributes="Bold"
+        Padding="10,5"
+        WidthRequest="160"
+        Margin="0,0,12,12" />
+
+            <Button 
+        Text="↑ Export Excel" 
+        Clicked="OnExportClicked" 
+        BackgroundColor="#FBBF24" 
+        TextColor="Black"
+        CornerRadius="8"
+        FontAttributes="Bold"
+        Padding="10,5"
+        WidthRequest="160"
+        Margin="0,0,12,12" />
+        </FlexLayout>
+
+        <!-- Search Bar -->
         <SearchBar 
-            Placeholder="Search"
-            TextChanged="OnSearchTextChanged" />
+            Placeholder="Search relations..."
+            TextChanged="OnSearchTextChanged"
+            BackgroundColor="White"
+            Margin="0,10"
+            HeightRequest="44" />
 
-        <CollectionView
-            x:Name="RelationsCollectionView"
-            SelectionMode="Single"
-            SelectionChanged="OnSelectionChanged"
-            ItemsSource="{Binding FilteredRelations}">
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="10" Margin="0,0,0,10"  CornerRadius="5">
-                        <Grid ColumnDefinitions="*,*,*,*,*,Auto" RowDefinitions="Auto">
+        <ScrollView Orientation="Horizontal">
+            <VerticalStackLayout WidthRequest="1000">
 
-                            <Label Text="{Binding FirstName}" Grid.Column="0" />
-                            <Label Text="{Binding LastName}" Grid.Column="1" />
-                            <Label Text="{Binding Age}" Grid.Column="2" />
-                            <Label Text="{Binding Gender}" Grid.Column="3" />
-                            <Label Text="{Binding Address}" Grid.Column="4" />
+           
+                <Grid ColumnDefinitions="50,*,*,*,*,*,Auto"
+                      Padding="14"
+                      BackgroundColor="White"
+                      
+                      Margin="0,0,0,4">
+                    <Label Text="#" Grid.Column="0" FontAttributes="Bold" TextColor="#6B7280"/>
+                    <Label Text="First Name" Grid.Column="1" FontAttributes="Bold" TextColor="#6B7280"/>
+                    <Label Text="Last Name" Grid.Column="2" FontAttributes="Bold" TextColor="#6B7280"/>
+                    <Label Text="Age" Grid.Column="3" FontAttributes="Bold" TextColor="#6B7280"/>
+                    <Label Text="Gender" Grid.Column="4" FontAttributes="Bold" TextColor="#6B7280"/>
+                    <Label Text="Address" Grid.Column="5" FontAttributes="Bold" TextColor="#6B7280"/>
+                    <Label Text="Actions" Grid.Column="6" FontAttributes="Bold" TextColor="#6B7280"/>
+                </Grid>
 
-                            <HorizontalStackLayout Grid.Column="5" Spacing="8" VerticalOptions="Center">
-                                <Button BackgroundColor="Blue" Text="View" Clicked="OnViewClicked" />
-                                <Button Text="Edit" Clicked="OnEditClicked" />
-                                <Button BackgroundColor="Red"  Text="Delete" Clicked="OnDeleteClicked" />
-                            </HorizontalStackLayout>
+                <CollectionView
+                    x:Name="RelationsCollectionView"
+                    SelectionMode="Single"
+                    SelectionChanged="OnSelectionChanged"
+                    ItemsSource="{Binding FilteredRelations}">
 
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame 
+                                Padding="14" 
+                                Margin="0,0,0,12"  
+                                CornerRadius="12"
+                                BorderColor="#E5E7EB"
+                                BackgroundColor="White"
+                                HasShadow="True">
 
-        </CollectionView>
+                                <Grid ColumnDefinitions="50,180,170,180,170,*,auto" RowDefinitions="Auto">
+
+                                    <Label Text="{Binding Index}" 
+                                           Grid.Column="0" 
+                                           TextColor="#1F2937" 
+                                           FontAttributes="Bold" />
+
+                                    <Label Text="{Binding FirstName}" 
+                                           Grid.Column="1" 
+                                           TextColor="#111827" />
+
+                                    <Label Text="{Binding LastName}" 
+                                           Grid.Column="2" 
+                                           TextColor="#1F2937" />
+
+                                    <Label Text="{Binding Age}" 
+                                           Grid.Column="3" 
+                                           TextColor="#374151" />
+
+                                    <Label Text="{Binding Gender}" 
+                                           Grid.Column="4" 
+                                           TextColor="#4B5563" />
+
+                                    <Label Text="{Binding Address}" 
+                                           Grid.Column="5" 
+                                           TextColor="#6B7280" 
+                                           LineBreakMode="TailTruncation" />
+
+                                    <!-- Action Buttons with Icons -->
+                                    <HorizontalStackLayout 
+                                        Grid.Column="6" 
+                                        Spacing="6" 
+                                        VerticalOptions="Center">
+
+                                        <Button 
+                                            Text="👁" 
+                                            Clicked="OnViewClicked" 
+                                            BackgroundColor="#3B82F6" 
+                                            TextColor="White" 
+                                            CornerRadius="6"
+                                            FontSize="12"
+                                            Padding="8,4" />
+
+                                        <Button 
+                                            Text="✏️" 
+                                            Clicked="OnEditClicked" 
+                                            BackgroundColor="#FACC15" 
+                                            TextColor="Black" 
+                                            CornerRadius="6"
+                                            FontSize="12"
+                                            Padding="8,4" />
+
+                                        <Button 
+                                            Text="🗑" 
+                                            Clicked="OnDeleteClicked" 
+                                            BackgroundColor="#EF4444" 
+                                            TextColor="White" 
+                                            CornerRadius="6"
+                                            FontSize="12"
+                                            Padding="8,4" />
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
 
     </VerticalStackLayout>
-
 </ContentPage>

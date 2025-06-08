@@ -15,8 +15,14 @@ namespace QanooniRishta.Models
         Others
     }
 
-    public class MatchRelationViewModel
+    public class MatchRealtion
     {
+
+        [Ignore]
+        public string? Index { get; set; }
+        [Ignore]
+
+        public bool IsFormEditable { get; set; } = true;
         [PrimaryKey]
         [AutoIncrement]
         public int Id { get; set; }
