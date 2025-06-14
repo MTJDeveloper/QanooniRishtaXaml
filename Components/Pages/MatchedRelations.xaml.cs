@@ -138,19 +138,16 @@ public partial class MatchedRelations : ContentPage
         if (sender is Button btn && btn.BindingContext is MatchRealtion item)
         {
             await Shell.Current.GoToAsync($"/addEditRelations?id={item.Id}&view=true");
-
-            //await Shell.Current.GoToAsync($"/addEditRelations/{item.Id}?view=true");
         }
     }
 
- 
+
     private async void OnEditClicked(object sender, EventArgs e)
     {
         if (sender is Button btn && btn.BindingContext is MatchRealtion item)
         {
-            await Shell.Current.GoToAsync($"/addEditRelations?id={item.Id}&view=true");
+            await Shell.Current.GoToAsync($"/addEditRelations?id={item.Id}&view=false");
 
-            //await Shell.Current.GoToAsync($"/addEditRelations/{item.Id}");
         }
     }
 

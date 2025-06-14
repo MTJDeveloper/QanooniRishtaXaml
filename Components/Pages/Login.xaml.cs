@@ -11,6 +11,17 @@ namespace QanooniRishta.Components.Pages
             LoginButton.Clicked += OnLoginButtonClicked;
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // Reset fields on appearing
+            EmailEntry.Text = string.Empty;
+            PasswordEntry.Text = string.Empty;
+            ErrorLabel.Text = string.Empty;
+            ErrorLabel.IsVisible = false;
+        }
+
         private async void OnLoginButtonClicked(object sender, EventArgs e)
         {
             // Clear previous error

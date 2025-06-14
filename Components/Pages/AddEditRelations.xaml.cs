@@ -1,36 +1,58 @@
-using Microsoft.Maui.Controls;
+﻿using Microsoft.Maui.Controls;
 using QanooniRishta.Models;
 using QanooniRishta.Services;
 using System.ComponentModel.DataAnnotations;
-using System.Web;
 
 namespace QanooniRishta.Components.Pages;
 
+[QueryProperty(nameof(NavigationId), "id")]
+[QueryProperty(nameof(NavigationView), "view")]
 public partial class AddEditRelations : ContentPage
 {
     private readonly SqlLiteDatabaseService _dbService;
     private MatchRealtion _model = new();
-    private bool _isViewMode;
+
+    private string _navId;
+    private string _navView;
+
+    public string PageIcon { get; set; } = "➕";
+    public string PageTitle { get; set; } = "Add Match Relation";
+    public bool IsFormEditable { get; set; } = true;
 
     public AddEditRelations()
     {
         InitializeComponent();
         _dbService = App.Services.GetService<SqlLiteDatabaseService>();
-        this.BindingContext = _model;
+        BindingContext = _model;
     }
 
-    protected override async void OnAppearing()
+    public string NavigationId
     {
-        base.OnAppearing();
+        set
+        {
+            _navId = value;
+            TryInitialize();
+        }
+    }
 
-        // Extract query parameters (e.g., ?id=5&view=true)
-        var uri = new Uri(Shell.Current.CurrentState.Location.ToString());
-        var query = HttpUtility.ParseQueryString(uri.Query);
+    public string NavigationView
+    {
+        set
+        {
+            _navView = value;
+            TryInitialize();
+        }
+    }
 
-        if (query.AllKeys.Contains("view"))
-            _isViewMode = query["view"]?.ToLower() == "true";
+    private async void TryInitialize()
+    {
+        if (_navId == null || _navView == null)
+            return;
 
-        if (query.AllKeys.Contains("id") && int.TryParse(query["id"], out int id))
+        IsFormEditable = _navView.ToLower() != "true";
+        int.TryParse(_navId, out int id);
+
+        if (id > 0)
         {
             var result = await _dbService.GetByIdAsync<MatchRealtion>(id);
             if (result != null)
@@ -40,7 +62,25 @@ public partial class AddEditRelations : ContentPage
             }
         }
 
-        // If _isViewMode is true, disable all input controls (example shown later)
+        if (!IsFormEditable)
+        {
+            PageTitle = "View Match Relation";
+            PageIcon = "👁️";
+        }
+        else if (_model.Id > 0)
+        {
+            PageTitle = "Edit Match Relation";
+            PageIcon = "✏️";
+        }
+        else
+        {
+            PageTitle = "Add Match Relation";
+            PageIcon = "➕";
+        }
+
+        OnPropertyChanged(nameof(PageTitle));
+        OnPropertyChanged(nameof(PageIcon));
+        OnPropertyChanged(nameof(IsFormEditable));
     }
 
     private async void OnSaveClicked(object sender, EventArgs e)
@@ -70,6 +110,11 @@ public partial class AddEditRelations : ContentPage
         }
 
         await DisplayAlert("Success", message, "OK");
-        await Shell.Current.GoToAsync(".."); // or "matchedRelations" if it's a registered route
+        await Shell.Current.GoToAsync("..");
+    }
+
+    private async void OnBackClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//matchedRelations");
     }
 }

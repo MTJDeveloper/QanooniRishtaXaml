@@ -3,33 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="QanooniRishta.Components.Pages.AddEditRelations"
              xmlns:models="clr-namespace:QanooniRishta.Models"
-             >
-
-    <ContentPage.BindingContext>
-        <models:MatchRealtion />
-    </ContentPage.BindingContext>
+             x:Name="ThisPage">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="16">
-            <Label Text="Add/Edit Match Relation"
-                   FontSize="24"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center" />
+            <Button Text="← Back"
+                    Clicked="OnBackClicked"
+                    BackgroundColor="#E0E7FF"
+                    TextColor="#1E3A8A"
+                    CornerRadius="8"
+                    FontAttributes="Bold"
+                    Padding="15,5"
+                    WidthRequest="160"
+                    Margin="0,0,5,12"
+                    HorizontalOptions="Start" />
+            
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Label Text="{Binding PageIcon, Source={x:Reference ThisPage}}"
+           FontSize="24"
+           Padding="0,0,8,0"/>
+                <Label Text="{Binding PageTitle, Source={x:Reference ThisPage}}"
+           FontSize="24"
+           FontAttributes="Bold"/>
+            </HorizontalStackLayout>
+
 
             <Frame BorderColor="LightGray" CornerRadius="12" Padding="16" HasShadow="True">
                 <VerticalStackLayout Spacing="12">
 
                     <Label Text="First Name" />
-                    <Entry Text="{Binding FirstName}" Placeholder="Enter first name" />
+                    <Entry Text="{Binding FirstName}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter first name" />
 
                     <Label Text="Last Name" />
-                    <Entry Text="{Binding LastName}" Placeholder="Enter last name" />
+                    <Entry Text="{Binding LastName}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter last name" />
 
                     <Label Text="Age" />
-                    <Entry Text="{Binding Age}" Keyboard="Numeric" Placeholder="Enter age" />
+                    <Entry Text="{Binding Age}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Keyboard="Numeric" Placeholder="Enter age" />
 
                     <Label Text="Gender" />
-                    <Picker SelectedItem="{Binding Gender}" Title="Select gender">
+                    <Picker SelectedItem="{Binding Gender}" Title="Select gender" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type models:Gender}">
                                 <models:Gender>Male</models:Gender>
@@ -40,38 +52,39 @@
                     </Picker>
 
                     <Label Text="Address" />
-                    <Entry Text="{Binding Address}" Placeholder="Enter address" />
+                    <Entry Text="{Binding Address}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter address" />
 
                     <Label Text="Caste" />
-                    <Entry Text="{Binding Caste}" Placeholder="Enter caste" />
+                    <Entry Text="{Binding Caste}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter caste" />
 
                     <Label Text="Profession" />
-                    <Entry Text="{Binding Profession}" Placeholder="Enter profession" />
+                    <Entry Text="{Binding Profession}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter profession" />
 
                     <Label Text="Education" />
-                    <Entry Text="{Binding Education}" Placeholder="Enter education" />
+                    <Entry Text="{Binding Education}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter education" />
 
                     <Label Text="Contact Number" />
-                    <Entry Text="{Binding ContactNumber}" Keyboard="Telephone" Placeholder="Enter contact number" />
+                    <Entry Text="{Binding ContactNumber}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Keyboard="Telephone" Placeholder="Enter contact number" />
 
                     <Label Text="Email" />
-                    <Entry Text="{Binding Email}" Keyboard="Email" Placeholder="Enter email address" />
+                    <Entry Text="{Binding Email}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Keyboard="Email" Placeholder="Enter email address" />
 
                     <Label Text="Bio" />
-                    <Editor Text="{Binding Bio}" Placeholder="Write a short bio" HeightRequest="100" />
+                    <Editor Text="{Binding Bio}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Write a short bio" HeightRequest="100" />
 
                     <Label Text="City" />
-                    <Entry Text="{Binding City}" Placeholder="Enter city" />
+                    <Entry Text="{Binding City}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter city" />
 
                     <Label Text="Country" />
-                    <Entry Text="{Binding Country}" Placeholder="Enter country" />
+                    <Entry Text="{Binding Country}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter country" />
 
                     <Button Text="Save"
                             Clicked="OnSaveClicked"
                             BackgroundColor="#2E7D32"
                             TextColor="White"
                             CornerRadius="8"
-                            HeightRequest="45" />
+                            HeightRequest="45"
+                            IsVisible="{Binding IsFormEditable, Source={x:Reference ThisPage}}" />
                 </VerticalStackLayout>
             </Frame>
         </VerticalStackLayout>

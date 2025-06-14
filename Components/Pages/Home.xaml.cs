@@ -15,4 +15,12 @@ public partial class Home : ContentPage
     {
         await Shell.Current.GoToAsync("addEditRelations");
     }
+    private async void OnLogoutClicked(object sender, EventArgs e)
+    {
+        // Optional: Clear any session state here
+
+        // Navigate back to login and reset the stack
+        await Shell.Current.GoToAsync("//login");
+    }
+
 }
