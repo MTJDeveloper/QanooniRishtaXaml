@@ -15,8 +15,8 @@ public partial class AddEditRelations : ContentPage
     private string _navId;
     private string _navView;
 
-    public string PageIcon { get; set; } = "➕";
-    public string PageTitle { get; set; } = "Add Match Relation";
+    public string PageIcon { get; set; } = "";
+    public string PageTitle { get; set; } = "Add Match Relation ❤️";
     public bool IsFormEditable { get; set; } = true;
 
     public AddEditRelations()
@@ -64,18 +64,18 @@ public partial class AddEditRelations : ContentPage
 
         if (!IsFormEditable)
         {
-            PageTitle = "View Match Relation";
+            PageTitle = "View Match Relation ❤️";
             PageIcon = "👁️";
         }
         else if (_model.Id > 0)
         {
-            PageTitle = "Edit Match Relation";
+            PageTitle = "Edit Match Relation ❤️";
             PageIcon = "✏️";
         }
         else
         {
-            PageTitle = "Add Match Relation";
-            PageIcon = "➕";
+            PageTitle = "Add Match Relation ❤️";
+            PageIcon = "";
         }
 
         OnPropertyChanged(nameof(PageTitle));

@@ -5,10 +5,8 @@
 
     <AbsoluteLayout>
 
-        <!-- Full Background Grid -->
         <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
               AbsoluteLayout.LayoutFlags="All">
-            <!-- Background Image -->
             <Image Source="marriagebackground2.jpg"
                    Aspect="AspectFill"
                    Opacity="0.7"
@@ -41,16 +39,16 @@
             </VerticalStackLayout>
         </Grid>
 
-        <!-- Top-Left Logout Button -->
         <Button Text="Logout"
                 Clicked="OnLogoutClicked"
-                BackgroundColor="#D32F2F"
+                BackgroundColor="red"
                 TextColor="White"
-                FontSize="14"
+                ImageSource="logout_4034229.png"
+                FontSize="16"
                 FontAttributes="Bold"
-                CornerRadius="5"
-                Padding="10,5"
-                AbsoluteLayout.LayoutBounds="0.02,0.02,120,40"
+                CornerRadius="8"
+                HeightRequest="40"
+                Margin="10"
                 AbsoluteLayout.LayoutFlags="PositionProportional" />
     </AbsoluteLayout>
 </ContentPage>
