@@ -7,7 +7,8 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="16">
-            <Button Text="← Back"
+            <Button Text="Back"
+                     HeightRequest="32" ImageSource="back.png"
                     Clicked="OnBackClicked"
                     BackgroundColor="#E0E7FF"
                     TextColor="#1E3A8A"
@@ -17,31 +18,62 @@
                     WidthRequest="160"
                     Margin="0,0,5,12"
                     HorizontalOptions="Start" />
-            
+
             <HorizontalStackLayout HorizontalOptions="Center">
-                <Label Text="{Binding PageIcon, Source={x:Reference ThisPage}}"
-           FontSize="24"
-           Padding="0,0,8,0"/>
-                <Label Text="{Binding PageTitle, Source={x:Reference ThisPage}}"
-           FontSize="24"
-           FontAttributes="Bold"/>
+                <Label Text="{Binding PageIcon, Source={x:Reference ThisPage}}" 
+                       FontSize="24" 
+                       Padding="0,0,8,0">
+                    <Label.TextColor>
+                        <AppThemeBinding Light="Black" Dark="White"/>
+                    </Label.TextColor>
+                </Label>
+                <Label Text="{Binding PageTitle, Source={x:Reference ThisPage}}" 
+                       FontSize="24" 
+                       FontAttributes="Bold">
+                    <Label.TextColor>
+                        <AppThemeBinding Light="Black" Dark="White"/>
+                    </Label.TextColor>
+                </Label>
             </HorizontalStackLayout>
 
+            <Frame CornerRadius="12" Padding="16" HasShadow="True">
+                <Frame.BackgroundColor>
+                    <AppThemeBinding Light="White" Dark="#1E1E1E" />
+                </Frame.BackgroundColor>
 
-            <Frame BorderColor="LightGray" CornerRadius="12" Padding="16" HasShadow="True">
                 <VerticalStackLayout Spacing="12">
+                    <!-- Helper for entries -->
+                   
 
-                    <Label Text="First Name" />
-                    <Entry Text="{Binding FirstName}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter first name" />
+                    <!-- First Name -->
+                    <Label Text="First Name" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    <Entry Text="{Binding FirstName}" Placeholder="Enter first name"
+                           IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}"
+                           BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2C}"
+                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                           PlaceholderColor="{AppThemeBinding Light=Gray, Dark=LightGray}" />
 
-                    <Label Text="Last Name" />
-                    <Entry Text="{Binding LastName}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter last name" />
+                    <!-- Last Name -->
+                    <Label Text="Last Name" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    <Entry Text="{Binding LastName}" Placeholder="Enter last name"
+                           IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}"
+                           BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2C}"
+                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                           PlaceholderColor="{AppThemeBinding Light=Gray, Dark=LightGray}" />
 
-                    <Label Text="Age" />
-                    <Entry Text="{Binding Age}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Keyboard="Numeric" Placeholder="Enter age" />
+                    <!-- Age -->
+                    <Label Text="Age" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    <Entry Text="{Binding Age}" Keyboard="Numeric" Placeholder="Enter age"
+                           IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}"
+                           BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2C}"
+                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                           PlaceholderColor="{AppThemeBinding Light=Gray, Dark=LightGray}" />
 
-                    <Label Text="Gender" />
-                    <Picker SelectedItem="{Binding Gender}" Title="Select gender" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}">
+                    <!-- Gender -->
+                    <Label Text="Gender" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    <Picker SelectedItem="{Binding Gender}" Title="Select gender"
+                            IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}"
+                            TextColor="{AppThemeBinding Light=Black, Dark=White}">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type models:Gender}">
                                 <models:Gender>Male</models:Gender>
@@ -51,33 +83,79 @@
                         </Picker.ItemsSource>
                     </Picker>
 
-                    <Label Text="Address" />
-                    <Entry Text="{Binding Address}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter address" />
+                    <!-- Address -->
+                    <Label Text="Address" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    <Entry Text="{Binding Address}" Placeholder="Enter address"
+                           IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}"
+                           BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2C}"
+                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                           PlaceholderColor="{AppThemeBinding Light=Gray, Dark=LightGray}" />
 
-                    <Label Text="Caste" />
-                    <Entry Text="{Binding Caste}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter caste" />
+                    <!-- Caste -->
+                    <Label Text="Caste" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    <Entry Text="{Binding Caste}" Placeholder="Enter caste"
+                           IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}"
+                           BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2C}"
+                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                           PlaceholderColor="{AppThemeBinding Light=Gray, Dark=LightGray}" />
 
-                    <Label Text="Profession" />
-                    <Entry Text="{Binding Profession}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter profession" />
+                    <!-- Profession -->
+                    <Label Text="Profession" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    <Entry Text="{Binding Profession}" Placeholder="Enter profession"
+                           IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}"
+                           BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2C}"
+                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                           PlaceholderColor="{AppThemeBinding Light=Gray, Dark=LightGray}" />
 
-                    <Label Text="Education" />
-                    <Entry Text="{Binding Education}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter education" />
+                    <!-- Education -->
+                    <Label Text="Education" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    <Entry Text="{Binding Education}" Placeholder="Enter education"
+                           IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}"
+                           BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2C}"
+                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                           PlaceholderColor="{AppThemeBinding Light=Gray, Dark=LightGray}" />
 
-                    <Label Text="Contact Number" />
-                    <Entry Text="{Binding ContactNumber}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Keyboard="Telephone" Placeholder="Enter contact number" />
+                    <!-- Contact Number -->
+                    <Label Text="Contact Number" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    <Entry Text="{Binding ContactNumber}" Keyboard="Telephone" Placeholder="Enter contact number"
+                           IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}"
+                           BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2C}"
+                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                           PlaceholderColor="{AppThemeBinding Light=Gray, Dark=LightGray}" />
 
-                    <Label Text="Email" />
-                    <Entry Text="{Binding Email}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Keyboard="Email" Placeholder="Enter email address" />
+                    <!-- Email -->
+                    <Label Text="Email" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    <Entry Text="{Binding Email}" Keyboard="Email" Placeholder="Enter email address"
+                           IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}"
+                           BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2C}"
+                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                           PlaceholderColor="{AppThemeBinding Light=Gray, Dark=LightGray}" />
 
-                    <Label Text="Bio" />
-                    <Editor Text="{Binding Bio}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Write a short bio" HeightRequest="100" />
+                    <!-- Bio -->
+                    <Label Text="Bio" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    <Entry Text="{Binding Bio}" Placeholder="Write a short bio"
+                           IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}"
+                           BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2C}"
+                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                           PlaceholderColor="{AppThemeBinding Light=Gray, Dark=LightGray}" />
 
-                    <Label Text="City" />
-                    <Entry Text="{Binding City}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter city" />
+                    <!-- City -->
+                    <Label Text="City" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    <Entry Text="{Binding City}" Placeholder="Enter city"
+                           IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}"
+                           BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2C}"
+                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                           PlaceholderColor="{AppThemeBinding Light=Gray, Dark=LightGray}" />
 
-                    <Label Text="Country" />
-                    <Entry Text="{Binding Country}" IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}" Placeholder="Enter country" />
+                    <!-- Country -->
+                    <Label Text="Country" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                    <Entry Text="{Binding Country}" Placeholder="Enter country"
+                           IsEnabled="{Binding IsFormEditable, Source={x:Reference ThisPage}}"
+                           BackgroundColor="{AppThemeBinding Light=White, Dark=#2C2C2C}"
+                           TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                           PlaceholderColor="{AppThemeBinding Light=Gray, Dark=LightGray}" />
 
+                    <!-- Save Button -->
                     <Button Text="Save"
                             Clicked="OnSaveClicked"
                             BackgroundColor="#2E7D32"

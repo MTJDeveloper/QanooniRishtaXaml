@@ -78,6 +78,20 @@ public partial class MatchedRelations : ContentPage
     {
         try
         {
+        #if ANDROID
+                var status = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
+
+                if (status != PermissionStatus.Granted)
+                {
+                    status = await Permissions.RequestAsync<Permissions.StorageWrite>();
+                    if (status != PermissionStatus.Granted)
+                    {
+                        await DisplayAlert("Permission Denied", "Storage permission is required to export the Excel file.", "OK");
+                        return;
+                    }
+                }
+        #endif
+
             var data = await _dbService.GetAllAsync<MatchRealtion>();
 
             using var workbook = new XLWorkbook();
@@ -88,7 +102,6 @@ public partial class MatchedRelations : ContentPage
             worksheet.Cell(1, 3).Value = "Age";
             worksheet.Cell(1, 4).Value = "Gender";
             worksheet.Cell(1, 5).Value = "Address";
-
             worksheet.Range("A1:E1").Style.Font.Bold = true;
 
             for (int i = 0; i < data.Count; i++)
@@ -106,19 +119,19 @@ public partial class MatchedRelations : ContentPage
 
             string filePath;
 
-            #if ANDROID
-                        var downloadsPath = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
-                        filePath = System.IO.Path.Combine(downloadsPath, "matched_relations.xlsx");
-            #elif WINDOWS
-                        var downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads";
-                        filePath = System.IO.Path.Combine(downloadsPath, "matched_relations.xlsx");
-            #else
-                   
-                filePath = System.IO.Path.Combine(FileSystem.AppDataDirectory, "matched_relations.xlsx");
-            #endif
+        #if ANDROID
+                var downloadsPath = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
+                filePath = Path.Combine(downloadsPath, "matched_relations.xlsx");
+        #elif WINDOWS
+                    var downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads";
+                    filePath = Path.Combine(downloadsPath, "matched_relations.xlsx");
+        #else
+                filePath = Path.Combine(FileSystem.AppDataDirectory, "matched_relations.xlsx");
+        #endif
 
             await File.WriteAllBytesAsync(filePath, bytes);
-            await DisplayAlert("Success", "Exported Excel file successfully. (Implement file saving)", "OK");
+
+            await DisplayAlert("Success", "Exported Excel file successfully.", "OK");
 
             await Launcher.Default.OpenAsync(new OpenFileRequest
             {
@@ -127,9 +140,7 @@ public partial class MatchedRelations : ContentPage
         }
         catch (Exception ex)
         {
-
             await DisplayAlert("Error", ex.Message, "OK");
-
         }
     }
 
@@ -165,6 +176,7 @@ public partial class MatchedRelations : ContentPage
                 await _dbService.DeleteAsync(item);
                 Relations.Remove(item);
                 ApplyFilter(string.Empty);
+                OnAppearing();
                 await DisplayAlert("Success", "Deleted successfully!", "OK");
             }
         }
